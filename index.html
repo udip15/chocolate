@@ -2,14 +2,14 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chocolate of Memories | A Surprise For You</title>
 
     <!-- Fonts: Playfair Display (Elegant) and Montserrat (Clean) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
 
     <!-- GSAP for Animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -22,15 +22,15 @@
          */
         
          :root {
-            --color-chocolate-dark: #3E2723;
+            --color-chocolate-dark: #3e2723;
             --color-chocolate-milk: #795548;
-            --color-chocolate-light: #D7CCC8;
-            --color-cream: #FDF5E6;
-            --color-gold: #D4AF37;
-            --color-pink: #F8BBD0;
-            --color-red: #C62828;
-            --font-heading: 'Playfair Display', serif;
-            --font-body: 'Montserrat', sans-serif;
+            --color-chocolate-light: #d7ccc8;
+            --color-cream: #fdf5e6;
+            --color-gold: #d4af37;
+            --color-pink: #f8bbd0;
+            --color-red: #c62828;
+            --font-heading: "Playfair Display", serif;
+            --font-body: "Montserrat", sans-serif;
         }
         
         * {
@@ -82,7 +82,7 @@
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, var(--color-gold), #C5A028);
+            background: linear-gradient(135deg, var(--color-gold), #c5a028);
             color: var(--color-chocolate-dark);
             padding: 15px 40px;
             border: none;
@@ -161,7 +161,7 @@
          */
         
         #slide-1 {
-            background: radial-gradient(circle at center, #5D4037 0%, #3E2723 100%);
+            background: radial-gradient(circle at center, #5d4037 0%, #3e2723 100%);
         }
         
         .floating-choco {
@@ -206,7 +206,7 @@
         .photo-inner {
             flex-grow: 1;
             background-color: #ddd;
-            background-image: url('1.jpeg');
+            background-image: url("1.jpeg");
             /* Replaceable Memory Image */
             background-size: cover;
             background-position: center;
@@ -215,7 +215,7 @@
         
         .photo-caption {
             color: #333;
-            font-family: 'Courier New', monospace;
+            font-family: "Courier New", monospace;
             font-size: 0.9rem;
             margin-top: 10px;
             font-weight: bold;
@@ -225,7 +225,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #7B1FA2, #4A148C);
+            background: linear-gradient(135deg, #7b1fa2, #4a148c);
             top: 0;
             left: 0;
             z-index: 2;
@@ -254,7 +254,7 @@
         }
         
         #slide-3 p {
-            color: #5D4037;
+            color: #5d4037;
         }
         
         .drip-container {
@@ -288,13 +288,13 @@
          */
         
         #slide-4 {
-            background: radial-gradient(circle at center, #880E4F 0%, #210414 100%);
+            background: radial-gradient(circle at center, #880e4f 0%, #210414 100%);
         }
         
         .choco-bar {
             width: 280px;
             height: 360px;
-            background: #5D4037;
+            background: #5d4037;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             grid-template-rows: repeat(3, 1fr);
@@ -346,7 +346,7 @@
          */
         
         #slide-5 {
-            background: linear-gradient(to bottom, #3E2723, #000);
+            background: linear-gradient(to bottom, #3e2723, #000);
         }
         
         .pulse-heart {
@@ -374,12 +374,9 @@
 </head>
 
 <body>
-
     <!-- Audio Element (Hidden) -->
-    <audio id="bg-music" autoplay loop>
-        <!-- Replace with a romantic royalty-free track URL -->
-        <source src="meri.mp3" type="audio/mp3">
-        Your browser does not support the audio element.
+    <audio id="bg-music" loop autoplay preload="auto">
+      <source src="meri.mp3" type="audio/mpeg" />
     </audio>
 
     <!-- Music Toggle UI -->
@@ -388,12 +385,13 @@
     </div>
 
     <div id="app-container">
-
         <!-- SLIDE 1: INTRO -->
         <section id="slide-1" class="slide active">
-            <h1 class="s1-text">Happy Chocolate Day<br>Meri Apsara 🍫❤️</h1>
-            <p class="s1-text">This chocolate is not sweet...<br>YOU are 💖</p>
-            <button class="btn-primary s1-text" id="start-btn">Unwrap Chocolate 🍫</button>
+            <h1 class="s1-text">Happy Chocolate Day<br />Meri Apsara 🍫❤️</h1>
+            <p class="s1-text">This chocolate is not sweet...<br />YOU are 💖</p>
+            <button class="btn-primary s1-text" id="start-btn">
+          Unwrap Chocolate 🍫
+        </button>
             <div id="choco-rain-container"></div>
         </section>
 
@@ -408,7 +406,7 @@
                     <div class="wrapper-text">Dairy Milk</div>
                 </div>
             </div>
-            <p class="typewriter-text" style="margin-top: 20px; font-weight: 600; min-height: 60px;"></p>
+            <p class="typewriter-text" style="margin-top: 20px; font-weight: 600; min-height: 60px"></p>
         </section>
 
         <!-- SLIDE 3: PROMISE -->
@@ -417,13 +415,15 @@
                 <div class="drip"></div>
             </div>
             <h1 class="s3-text">My Promise</h1>
-            <p class="s3-text">I promise to make every day<br>as sweet as Chocolate Day 🍫💝</p>
+            <p class="s3-text">
+                I promise to make every day<br />as sweet as Chocolate Day 🍫💝
+            </p>
             <div id="hearts-container"></div>
         </section>
 
         <!-- SLIDE 4: SURPRISE -->
         <section id="slide-4" class="slide">
-            <h2 style="margin-bottom: 20px;">Tap the Chocolate 🎁</h2>
+            <h2 style="margin-bottom: 20px">Tap the Chocolate 🎁</h2>
             <div class="choco-bar" id="choco-break">
                 <div class="choco-piece"><span>Love</span></div>
                 <div class="choco-piece"><span>You</span></div>
@@ -442,10 +442,13 @@
         <section id="slide-5" class="slide">
             <div class="pulse-heart">❤️</div>
             <h1 class="s5-text">I don't need sugar...</h1>
-            <p class="s5-text">Because my life is already<br>sweet with you ❤️🍫</p>
-            <button class="btn-primary" onclick="toggleMusic()">Play Music 🎵</button>
+            <p class="s5-text">
+                Because my life is already<br />sweet with you ❤️🍫
+            </p>
+            <button class="btn-primary" onclick="toggleMusic()">
+          Play Music 🎵
+        </button>
         </section>
-
     </div>
 
     <script>
@@ -455,14 +458,14 @@
         let currentSlide = 0;
         const totalSlides = 5;
         let isAnimating = false;
-        const slides = document.querySelectorAll('.slide');
-        const audio = document.getElementById('bg-music');
+        const slides = document.querySelectorAll(".slide");
+        const audio = document.getElementById("bg-music");
         let musicPlaying = false;
 
         // ==========================================
         // INIT
         // ==========================================
-        window.addEventListener('load', () => {
+        window.addEventListener("load", () => {
             initSlide1();
         });
 
@@ -472,7 +475,13 @@
 
         // Go to specific slide
         function goToSlide(index) {
-            if (index < 0 || index >= totalSlides || isAnimating || index === currentSlide) return;
+            if (
+                index < 0 ||
+                index >= totalSlides ||
+                isAnimating ||
+                index === currentSlide
+            )
+                return;
 
             isAnimating = true;
             const direction = index > currentSlide ? 1 : -1;
@@ -482,40 +491,46 @@
             // GSAP Transition Timeline
             const tl = gsap.timeline({
                 onComplete: () => {
-                    leavingSlide.classList.remove('active');
+                    leavingSlide.classList.remove("active");
                     isAnimating = false;
                     currentSlide = index;
                     triggerSlideAnimation(index); // Trigger specific slide logic
-                }
+                },
             });
 
             // Transition Animation
             tl.to(leavingSlide, {
-                    y: direction * -100 + '%',
+                    y: direction * -100 + "%",
                     opacity: 0,
-                    duration: 1,
-                    ease: "power2.inOut"
-                })
-                .set(enteringSlide, {
-                    y: direction * 100 + '%',
-                    opacity: 0,
-                    visibility: 'visible',
-                    zIndex: 10
-                }, "<") // Start at same time
-                .to(enteringSlide, {
-                    y: '0%',
-                    opacity: 1,
                     duration: 1,
                     ease: "power2.inOut",
-                    onStart: () => {
-                        enteringSlide.classList.add('active');
-                    }
-                }, "-=0.8");
+                })
+                .set(
+                    enteringSlide, {
+                        y: direction * 100 + "%",
+                        opacity: 0,
+                        visibility: "visible",
+                        zIndex: 10,
+                    },
+                    "<"
+                ) // Start at same time
+                .to(
+                    enteringSlide, {
+                        y: "0%",
+                        opacity: 1,
+                        duration: 1,
+                        ease: "power2.inOut",
+                        onStart: () => {
+                            enteringSlide.classList.add("active");
+                        },
+                    },
+                    "-=0.8"
+                );
         }
 
         // Mouse Wheel Scroll (Debounced)
         let wheelTimeout;
-        window.addEventListener('wheel', (e) => {
+        window.addEventListener("wheel", (e) => {
             clearTimeout(wheelTimeout);
             wheelTimeout = setTimeout(() => {
                 if (e.deltaY > 0) goToSlide(currentSlide + 1);
@@ -527,11 +542,11 @@
         let touchStartY = 0;
         let touchEndY = 0;
 
-        document.addEventListener('touchstart', e => {
+        document.addEventListener("touchstart", (e) => {
             touchStartY = e.changedTouches[0].screenY;
         });
 
-        document.addEventListener('touchend', e => {
+        document.addEventListener("touchend", (e) => {
             touchEndY = e.changedTouches[0].screenY;
             handleSwipe();
         });
@@ -564,25 +579,25 @@
 
         // Slide 1: Falling Chocolates (Init immediately)
         function initSlide1() {
-            const container = document.getElementById('choco-rain-container');
-            const emojis = ['🍫', '🤎', '🍬'];
+            const container = document.getElementById("choco-rain-container");
+            const emojis = ["🍫", "🤎", "🍬"];
 
             // Create particles
             for (let i = 0; i < 20; i++) {
-                const el = document.createElement('div');
+                const el = document.createElement("div");
                 el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-                el.className = 'floating-choco';
-                el.style.left = Math.random() * 100 + 'vw';
-                el.style.top = -10 + 'vh';
+                el.className = "floating-choco";
+                el.style.left = Math.random() * 100 + "vw";
+                el.style.top = -10 + "vh";
                 container.appendChild(el);
 
                 gsap.to(el, {
-                    y: '110vh',
+                    y: "110vh",
                     rotation: 360,
                     duration: 3 + Math.random() * 5,
                     delay: Math.random() * 5,
                     repeat: -1,
-                    ease: "linear"
+                    ease: "linear",
                 });
             }
 
@@ -592,7 +607,7 @@
                 opacity: 0,
                 stagger: 0.3,
                 duration: 1.5,
-                ease: "power3.out"
+                ease: "power3.out",
             });
         }
 
@@ -605,18 +620,22 @@
                     rotationY: -180,
                     duration: 1.5,
                     ease: "power2.inOut",
-                    transformOrigin: "left center"
+                    transformOrigin: "left center",
                 })
                 // Zoom Photo
-                .from(".photo-inner", {
-                    scale: 0.8,
-                    duration: 1
-                }, "-=1");
+                .from(
+                    ".photo-inner", {
+                        scale: 0.8,
+                        duration: 1,
+                    },
+                    "-=1"
+                );
 
             // Typewriter Effect
-            const text = "Every time I see you, my heart melts quietly like chocolate, warm and sweet.🍫";
-            const textContainer = document.querySelector('.typewriter-text');
-            textContainer.innerHTML = '';
+            const text =
+                "Every time I see you, my heart melts quietly like chocolate, warm and sweet.🍫";
+            const textContainer = document.querySelector(".typewriter-text");
+            textContainer.innerHTML = "";
 
             let i = 0;
 
@@ -632,54 +651,58 @@
 
         // Slide 3: Dripping Chocolate & Hearts
         function animateSlide3() {
-            gsap.fromTo(".drip", {
-                y: '-80%'
-            }, {
-                y: '-50%',
-                duration: 2,
-                ease: "elastic.out(1, 0.5)"
-            });
+            gsap.fromTo(
+                ".drip", {
+                    y: "-80%",
+                }, {
+                    y: "-50%",
+                    duration: 2,
+                    ease: "elastic.out(1, 0.5)",
+                }
+            );
 
             gsap.from(".s3-text", {
                 y: 100,
                 opacity: 0,
                 stagger: 0.2,
                 duration: 1,
-                delay: 0.5
+                delay: 0.5,
             });
 
             // Floating Hearts
-            const container = document.getElementById('hearts-container');
+            const container = document.getElementById("hearts-container");
             if (container.children.length === 0) {
                 for (let i = 0; i < 15; i++) {
-                    const el = document.createElement('div');
-                    el.innerText = '❤️';
-                    el.className = 'floating-heart';
-                    el.style.left = Math.random() * 100 + 'vw';
+                    const el = document.createElement("div");
+                    el.innerText = "❤️";
+                    el.className = "floating-heart";
+                    el.style.left = Math.random() * 100 + "vw";
                     container.appendChild(el);
 
-                    gsap.fromTo(el, {
-                        y: '100vh',
-                        opacity: 1,
-                        scale: 0.5 + Math.random()
-                    }, {
-                        y: '-10vh',
-                        opacity: 0,
-                        duration: 4 + Math.random() * 4,
-                        repeat: -1,
-                        delay: Math.random() * 5,
-                        ease: "power1.out"
-                    });
+                    gsap.fromTo(
+                        el, {
+                            y: "100vh",
+                            opacity: 1,
+                            scale: 0.5 + Math.random(),
+                        }, {
+                            y: "-10vh",
+                            opacity: 0,
+                            duration: 4 + Math.random() * 4,
+                            repeat: -1,
+                            delay: Math.random() * 5,
+                            ease: "power1.out",
+                        }
+                    );
                 }
             }
         }
 
         // Slide 4: Interactive Break
-        const chocoBar = document.getElementById('choco-break');
-        const pieces = document.querySelectorAll('.choco-piece');
-        const hiddenMsg = document.querySelector('.hidden-message');
+        const chocoBar = document.getElementById("choco-break");
+        const pieces = document.querySelectorAll(".choco-piece");
+        const hiddenMsg = document.querySelector(".hidden-message");
 
-        chocoBar.addEventListener('click', () => {
+        chocoBar.addEventListener("click", () => {
             // Shatter Animation
             pieces.forEach((piece) => {
                 const x = (Math.random() - 0.5) * 500;
@@ -692,7 +715,7 @@
                     rotation: r,
                     opacity: 0,
                     duration: 1,
-                    ease: "power3.out"
+                    ease: "power3.out",
                 });
             });
 
@@ -702,7 +725,7 @@
                 opacity: 1,
                 duration: 0.8,
                 ease: "back.out(1.7)",
-                delay: 0.2
+                delay: 0.2,
             });
         });
 
@@ -712,11 +735,11 @@
                 x: 0,
                 y: 0,
                 rotation: 0,
-                opacity: 1
+                opacity: 1,
             });
             gsap.set(hiddenMsg, {
                 scale: 0,
-                opacity: 0
+                opacity: 0,
             });
         }
 
@@ -727,7 +750,7 @@
                 duration: 0.8,
                 repeat: -1,
                 yoyo: true,
-                ease: "power1.inOut"
+                ease: "power1.inOut",
             });
 
             gsap.from(".s5-text", {
@@ -735,43 +758,64 @@
                 opacity: 0,
                 duration: 1.5,
                 stagger: 0.3,
-                ease: "elastic.out(1, 0.3)"
+                ease: "elastic.out(1, 0.3)",
             });
         }
 
         // ==========================================
         // AUDIO CONTROL
         // ==========================================
-        const startBtn = document.getElementById('start-btn');
-        const musicBtn = document.getElementById('music-btn');
+        const startBtn = document.getElementById("start-btn");
+        const musicBtn = document.getElementById("music-btn");
 
         // Initial Start (Unwrap Button)
-        startBtn.addEventListener('click', () => {
+        startBtn.addEventListener("click", () => {
             playAudio();
             goToSlide(1);
         });
 
         // Toggle Button
-        musicBtn.addEventListener('click', toggleMusic);
+        musicBtn.addEventListener("click", toggleMusic);
 
         function playAudio() {
-            audio.play().then(() => {
-                musicPlaying = true;
-                musicBtn.style.opacity = '1';
-            }).catch(e => console.log("Audio play failed (interaction needed first):", e));
+            audio.muted = false;
+            audio
+                .play()
+                .then(() => {
+                    musicPlaying = true;
+                    musicBtn.style.opacity = "1";
+
+                    // smooth volume set AFTER playback starts
+                    audio.volume = 0;
+                    let fade = setInterval(() => {
+                        if (audio.volume < 0.7) {
+                            audio.volume += 0.05;
+                        } else {
+                            clearInterval(fade);
+                        }
+                    }, 200);
+                })
+                .catch((e) => {
+                    console.log("Playback prevented:", e);
+                });
         }
 
         function toggleMusic() {
             if (musicPlaying) {
                 audio.pause();
                 musicPlaying = false;
-                musicBtn.style.opacity = '0.5';
+                musicBtn.style.opacity = "0.5";
             } else {
                 audio.play();
                 musicPlaying = true;
-                musicBtn.style.opacity = '1';
+                musicBtn.style.opacity = "1";
             }
         }
+
+        window.addEventListener("load", () => {
+            const audio = document.getElementById("bg-music");
+            audio.play().catch((e) => console.log("Autoplay prevented by browser"));
+        });
     </script>
 </body>
 
