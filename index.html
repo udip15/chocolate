@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chocolate of Memories | A Surprise For You</title>
+
+    <!-- Fonts: Playfair Display (Elegant) and Montserrat (Clean) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* * ==========================================
+         * CORE VARIABLES & RESET
+         * ==========================================
+         */
+        
+         :root {
+            --color-chocolate-dark: #3E2723;
+            --color-chocolate-milk: #795548;
+            --color-chocolate-light: #D7CCC8;
+            --color-cream: #FDF5E6;
+            --color-gold: #D4AF37;
+            --color-pink: #F8BBD0;
+            --color-red: #C62828;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            /* Prevent native scroll, we handle it via JS */
+            background-color: var(--color-chocolate-dark);
+            color: var(--color-cream);
+            font-family: var(--font-body);
+        }
+        /* * ==========================================
+         * UTILITIES & UI
+         * ==========================================
+         */
+        
+        .hidden {
+            display: none;
+        }
+        
+        .music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 1px solid var(--color-gold);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .music-control:hover {
+            transform: scale(1.1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-gold), #C5A028);
+            color: var(--color-chocolate-dark);
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+        }
+        
+        .btn-primary:active {
+            transform: scale(0.95);
+        }
+        /* * ==========================================
+         * SLIDE CONTAINER
+         * ==========================================
+         */
+        
+        #app-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+        
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+        }
+        
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 5;
+        }
+        
+        h1 {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto 1.5rem auto;
+            color: var(--color-chocolate-light);
+        }
+        /* * ==========================================
+         * SLIDE 1: INTRO
+         * ==========================================
+         */
+        
+        #slide-1 {
+            background: radial-gradient(circle at center, #5D4037 0%, #3E2723 100%);
+        }
+        
+        .floating-choco {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        /* * ==========================================
+         * SLIDE 2: MEMORY (WRAPPER)
+         * ==========================================
+         */
+        
+        #slide-2 {
+            background-color: #4e342e;
+            background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z' fill='%235d4037' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        
+        .wrapper-container {
+            width: 300px;
+            height: 400px;
+            position: relative;
+            perspective: 1000px;
+            margin-bottom: 20px;
+        }
+        
+        .photo-frame {
+            width: 100%;
+            height: 100%;
+            background: white;
+            padding: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transform: rotate(-3deg);
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .photo-inner {
+            flex-grow: 1;
+            background-color: #ddd;
+            background-image: url('1.jpeg');
+            /* Replaceable Memory Image */
+            background-size: cover;
+            background-position: center;
+            border: 1px solid #ccc;
+        }
+        
+        .photo-caption {
+            color: #333;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        
+        .wrapper-lid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #7B1FA2, #4A148C);
+            top: 0;
+            left: 0;
+            z-index: 2;
+            transform-origin: left;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--color-gold);
+            backface-visibility: hidden;
+        }
+        
+        .wrapper-text {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: var(--color-gold);
+            transform: rotate(-15deg);
+        }
+        /* * ==========================================
+         * SLIDE 3: PROMISE (DRIP)
+         * ==========================================
+         */
+        
+        #slide-3 {
+            background: var(--color-cream);
+            color: var(--color-chocolate-dark);
+        }
+        
+        #slide-3 p {
+            color: #5D4037;
+        }
+        
+        .drip-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            overflow: hidden;
+            z-index: 2;
+        }
+        
+        .drip {
+            width: 200%;
+            height: 100%;
+            background: var(--color-chocolate-dark);
+            border-radius: 50%;
+            position: absolute;
+            top: -60%;
+            left: -50%;
+        }
+        
+        .floating-heart {
+            position: absolute;
+            color: var(--color-red);
+            font-size: 1.5rem;
+        }
+        /* * ==========================================
+         * SLIDE 4: SURPRISE (BREAKABLE)
+         * ==========================================
+         */
+        
+        #slide-4 {
+            background: radial-gradient(circle at center, #880E4F 0%, #210414 100%);
+        }
+        
+        .choco-bar {
+            width: 280px;
+            height: 360px;
+            background: #5D4037;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 5px;
+            padding: 5px;
+            border-radius: 5px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            cursor: pointer;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
+        }
+        
+        .choco-bar:hover {
+            transform: scale(1.02);
+        }
+        
+        .choco-piece {
+            background: linear-gradient(145deg, #6d4c41, #4e342e);
+            border-radius: 4px;
+            box-shadow: inset 2px 2px 5px rgba(255, 255, 255, 0.1), inset -2px -2px 5px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .choco-piece span {
+            opacity: 0.3;
+        }
+        
+        .hidden-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 80%;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            color: var(--color-chocolate-dark);
+            text-align: center;
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.8);
+            z-index: 10;
+        }
+        /* * ==========================================
+         * SLIDE 5: FINAL
+         * ==========================================
+         */
+        
+        #slide-5 {
+            background: linear-gradient(to bottom, #3E2723, #000);
+        }
+        
+        .pulse-heart {
+            font-size: 5rem;
+            color: var(--color-red);
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 20px rgba(198, 40, 40, 0.6));
+        }
+        /* Mobile Adjustments */
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            p {
+                font-size: 1rem;
+                padding: 0 20px;
+            }
+            .choco-bar {
+                width: 240px;
+                height: 320px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Audio Element (Hidden) -->
+    <audio id="bg-music" autoplay loop>
+        <!-- Replace with a romantic royalty-free track URL -->
+        <source src="meri.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Music Toggle UI -->
+    <div class="music-control" id="music-btn" title="Toggle Music">
+        <span>🎵</span>
+    </div>
+
+    <div id="app-container">
+
+        <!-- SLIDE 1: INTRO -->
+        <section id="slide-1" class="slide active">
+            <h1 class="s1-text">Happy Chocolate Day<br>Meri Apsara 🍫❤️</h1>
+            <p class="s1-text">This chocolate is not sweet...<br>YOU are 💖</p>
+            <button class="btn-primary s1-text" id="start-btn">Unwrap Chocolate 🍫</button>
+            <div id="choco-rain-container"></div>
+        </section>
+
+        <!-- SLIDE 2: MEMORY -->
+        <section id="slide-2" class="slide">
+            <div class="wrapper-container">
+                <div class="photo-frame">
+                    <div class="photo-inner"></div>
+                    <div class="photo-caption">My Sweetest Apsara</div>
+                </div>
+                <div class="wrapper-lid">
+                    <div class="wrapper-text">Dairy Milk</div>
+                </div>
+            </div>
+            <p class="typewriter-text" style="margin-top: 20px; font-weight: 600; min-height: 60px;"></p>
+        </section>
+
+        <!-- SLIDE 3: PROMISE -->
+        <section id="slide-3" class="slide">
+            <div class="drip-container">
+                <div class="drip"></div>
+            </div>
+            <h1 class="s3-text">My Promise</h1>
+            <p class="s3-text">I promise to make every day<br>as sweet as Chocolate Day 🍫💝</p>
+            <div id="hearts-container"></div>
+        </section>
+
+        <!-- SLIDE 4: SURPRISE -->
+        <section id="slide-4" class="slide">
+            <h2 style="margin-bottom: 20px;">Tap the Chocolate 🎁</h2>
+            <div class="choco-bar" id="choco-break">
+                <div class="choco-piece"><span>Love</span></div>
+                <div class="choco-piece"><span>You</span></div>
+                <div class="choco-piece"><span>Hope</span></div>
+                <div class="choco-piece"><span>Joy</span></div>
+                <div class="choco-piece"><span>Kiss</span></div>
+                <div class="choco-piece"><span>Hug</span></div>
+            </div>
+            <div class="hidden-message">
+                <h2>Surprise! 🎉</h2>
+                <p>Your real gift is ME forever 😌❤️</p>
+            </div>
+        </section>
+
+        <!-- SLIDE 5: FINAL -->
+        <section id="slide-5" class="slide">
+            <div class="pulse-heart">❤️</div>
+            <h1 class="s5-text">I don't need sugar...</h1>
+            <p class="s5-text">Because my life is already<br>sweet with you ❤️🍫</p>
+            <button class="btn-primary" onclick="toggleMusic()">Play Music 🎵</button>
+        </section>
+
+    </div>
+
+    <script>
+        // ==========================================
+        // CONFIG & STATE
+        // ==========================================
+        let currentSlide = 0;
+        const totalSlides = 5;
+        let isAnimating = false;
+        const slides = document.querySelectorAll('.slide');
+        const audio = document.getElementById('bg-music');
+        let musicPlaying = false;
+
+        // ==========================================
+        // INIT
+        // ==========================================
+        window.addEventListener('load', () => {
+            initSlide1();
+        });
+
+        // ==========================================
+        // NAVIGATION LOGIC
+        // ==========================================
+
+        // Go to specific slide
+        function goToSlide(index) {
+            if (index < 0 || index >= totalSlides || isAnimating || index === currentSlide) return;
+
+            isAnimating = true;
+            const direction = index > currentSlide ? 1 : -1;
+            const leavingSlide = slides[currentSlide];
+            const enteringSlide = slides[index];
+
+            // GSAP Transition Timeline
+            const tl = gsap.timeline({
+                onComplete: () => {
+                    leavingSlide.classList.remove('active');
+                    isAnimating = false;
+                    currentSlide = index;
+                    triggerSlideAnimation(index); // Trigger specific slide logic
+                }
+            });
+
+            // Transition Animation
+            tl.to(leavingSlide, {
+                    y: direction * -100 + '%',
+                    opacity: 0,
+                    duration: 1,
+                    ease: "power2.inOut"
+                })
+                .set(enteringSlide, {
+                    y: direction * 100 + '%',
+                    opacity: 0,
+                    visibility: 'visible',
+                    zIndex: 10
+                }, "<") // Start at same time
+                .to(enteringSlide, {
+                    y: '0%',
+                    opacity: 1,
+                    duration: 1,
+                    ease: "power2.inOut",
+                    onStart: () => {
+                        enteringSlide.classList.add('active');
+                    }
+                }, "-=0.8");
+        }
+
+        // Mouse Wheel Scroll (Debounced)
+        let wheelTimeout;
+        window.addEventListener('wheel', (e) => {
+            clearTimeout(wheelTimeout);
+            wheelTimeout = setTimeout(() => {
+                if (e.deltaY > 0) goToSlide(currentSlide + 1);
+                else goToSlide(currentSlide - 1);
+            }, 50);
+        });
+
+        // Touch Swipe (Mobile)
+        let touchStartY = 0;
+        let touchEndY = 0;
+
+        document.addEventListener('touchstart', e => {
+            touchStartY = e.changedTouches[0].screenY;
+        });
+
+        document.addEventListener('touchend', e => {
+            touchEndY = e.changedTouches[0].screenY;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchStartY - touchEndY > 50) goToSlide(currentSlide + 1); // Swipe Up
+            if (touchEndY - touchStartY > 50) goToSlide(currentSlide - 1); // Swipe Down
+        }
+
+        // ==========================================
+        // SLIDE SPECIFIC ANIMATIONS
+        // ==========================================
+
+        function triggerSlideAnimation(index) {
+            switch (index) {
+                case 1:
+                    animateSlide2();
+                    break;
+                case 2:
+                    animateSlide3();
+                    break;
+                case 3:
+                    resetSlide4();
+                    break; // Reset bar if they come back
+                case 4:
+                    animateSlide5();
+                    break;
+            }
+        }
+
+        // Slide 1: Falling Chocolates (Init immediately)
+        function initSlide1() {
+            const container = document.getElementById('choco-rain-container');
+            const emojis = ['🍫', '🤎', '🍬'];
+
+            // Create particles
+            for (let i = 0; i < 20; i++) {
+                const el = document.createElement('div');
+                el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                el.className = 'floating-choco';
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.top = -10 + 'vh';
+                container.appendChild(el);
+
+                gsap.to(el, {
+                    y: '110vh',
+                    rotation: 360,
+                    duration: 3 + Math.random() * 5,
+                    delay: Math.random() * 5,
+                    repeat: -1,
+                    ease: "linear"
+                });
+            }
+
+            // Text Entrance
+            gsap.from(".s1-text", {
+                y: 50,
+                opacity: 0,
+                stagger: 0.3,
+                duration: 1.5,
+                ease: "power3.out"
+            });
+        }
+
+        // Slide 2: Wrapper & Typewriter
+        function animateSlide2() {
+            const tl = gsap.timeline();
+
+            // Open Wrapper
+            tl.to(".wrapper-lid", {
+                    rotationY: -180,
+                    duration: 1.5,
+                    ease: "power2.inOut",
+                    transformOrigin: "left center"
+                })
+                // Zoom Photo
+                .from(".photo-inner", {
+                    scale: 0.8,
+                    duration: 1
+                }, "-=1");
+
+            // Typewriter Effect
+            const text = "Every time I see you, my heart melts quietly like chocolate, warm and sweet.🍫";
+            const textContainer = document.querySelector('.typewriter-text');
+            textContainer.innerHTML = '';
+
+            let i = 0;
+
+            function type() {
+                if (i < text.length) {
+                    textContainer.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, 50);
+                }
+            }
+            setTimeout(type, 1500); // Start after wrapper opens
+        }
+
+        // Slide 3: Dripping Chocolate & Hearts
+        function animateSlide3() {
+            gsap.fromTo(".drip", {
+                y: '-80%'
+            }, {
+                y: '-50%',
+                duration: 2,
+                ease: "elastic.out(1, 0.5)"
+            });
+
+            gsap.from(".s3-text", {
+                y: 100,
+                opacity: 0,
+                stagger: 0.2,
+                duration: 1,
+                delay: 0.5
+            });
+
+            // Floating Hearts
+            const container = document.getElementById('hearts-container');
+            if (container.children.length === 0) {
+                for (let i = 0; i < 15; i++) {
+                    const el = document.createElement('div');
+                    el.innerText = '❤️';
+                    el.className = 'floating-heart';
+                    el.style.left = Math.random() * 100 + 'vw';
+                    container.appendChild(el);
+
+                    gsap.fromTo(el, {
+                        y: '100vh',
+                        opacity: 1,
+                        scale: 0.5 + Math.random()
+                    }, {
+                        y: '-10vh',
+                        opacity: 0,
+                        duration: 4 + Math.random() * 4,
+                        repeat: -1,
+                        delay: Math.random() * 5,
+                        ease: "power1.out"
+                    });
+                }
+            }
+        }
+
+        // Slide 4: Interactive Break
+        const chocoBar = document.getElementById('choco-break');
+        const pieces = document.querySelectorAll('.choco-piece');
+        const hiddenMsg = document.querySelector('.hidden-message');
+
+        chocoBar.addEventListener('click', () => {
+            // Shatter Animation
+            pieces.forEach((piece) => {
+                const x = (Math.random() - 0.5) * 500;
+                const y = (Math.random() - 0.5) * 500;
+                const r = (Math.random() - 0.5) * 360;
+
+                gsap.to(piece, {
+                    x: x,
+                    y: y,
+                    rotation: r,
+                    opacity: 0,
+                    duration: 1,
+                    ease: "power3.out"
+                });
+            });
+
+            // Reveal Message
+            gsap.to(hiddenMsg, {
+                scale: 1,
+                opacity: 1,
+                duration: 0.8,
+                ease: "back.out(1.7)",
+                delay: 0.2
+            });
+        });
+
+        function resetSlide4() {
+            // Reset for replayability if user scrolls back
+            gsap.set(pieces, {
+                x: 0,
+                y: 0,
+                rotation: 0,
+                opacity: 1
+            });
+            gsap.set(hiddenMsg, {
+                scale: 0,
+                opacity: 0
+            });
+        }
+
+        // Slide 5: Pulse
+        function animateSlide5() {
+            gsap.from(".pulse-heart", {
+                scale: 0.5,
+                duration: 0.8,
+                repeat: -1,
+                yoyo: true,
+                ease: "power1.inOut"
+            });
+
+            gsap.from(".s5-text", {
+                scale: 0.8,
+                opacity: 0,
+                duration: 1.5,
+                stagger: 0.3,
+                ease: "elastic.out(1, 0.3)"
+            });
+        }
+
+        // ==========================================
+        // AUDIO CONTROL
+        // ==========================================
+        const startBtn = document.getElementById('start-btn');
+        const musicBtn = document.getElementById('music-btn');
+
+        // Initial Start (Unwrap Button)
+        startBtn.addEventListener('click', () => {
+            playAudio();
+            goToSlide(1);
+        });
+
+        // Toggle Button
+        musicBtn.addEventListener('click', toggleMusic);
+
+        function playAudio() {
+            audio.play().then(() => {
+                musicPlaying = true;
+                musicBtn.style.opacity = '1';
+            }).catch(e => console.log("Audio play failed (interaction needed first):", e));
+        }
+
+        function toggleMusic() {
+            if (musicPlaying) {
+                audio.pause();
+                musicPlaying = false;
+                musicBtn.style.opacity = '0.5';
+            } else {
+                audio.play();
+                musicPlaying = true;
+                musicBtn.style.opacity = '1';
+            }
+        }
+    </script>
+</body>
+
+</html>
